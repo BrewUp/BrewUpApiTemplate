@@ -1,4 +1,6 @@
 using BrewUpApiTemplate.Modules;
+using BrewUpApiTemplate.Validators;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Register Modules
 builder.RegisterModules();
 
-builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<SayHelloValidator>();
 
 var app = builder.Build();
 
@@ -19,18 +22,15 @@ app.UseAuthorization();
 app.MapEndpoints();
 
 // Configure the HTTP request pipeline.
-if (builder.Environment.IsDevelopment())
+app.UseSwagger(s =>
 {
-    app.UseSwagger(s =>
-    {
-        s.RouteTemplate = "documentation/{documentName}/documentation.json";
-        s.SerializeAsV2 = true;
-    });
-    app.UseSwaggerUI(s =>
-    {
-        s.SwaggerEndpoint("/documentation/v1/documentation.json", "BrewUp Minimal Api Template");
-        s.RoutePrefix = "documentation";
-    });
-}
+    s.RouteTemplate = "documentation/{documentName}/documentation.json";
+    s.SerializeAsV2 = true;
+});
+app.UseSwaggerUI(s =>
+{
+    s.SwaggerEndpoint("/documentation/v1/documentation.json", "BrewUp Minimal Api Template");
+    s.RoutePrefix = "documentation";
+});
 
 app.Run();
