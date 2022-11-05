@@ -25,7 +25,6 @@ app.MapEndpoints();
 app.UseSwagger(s =>
 {
     s.RouteTemplate = "documentation/{documentName}/documentation.json";
-    s.SerializeAsV2 = true;
 });
 app.UseSwaggerUI(s =>
 {

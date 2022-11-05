@@ -2,8 +2,8 @@ namespace BrewUpApiTemplate.Modules;
 
 public sealed class StatusModule : IModule
 {
-    public bool IsEnabled { get; } = true;
-    public int Order { get; }
+    public bool IsEnabled => true;
+    public int Order => 0;
 
     public IServiceCollection RegisterModule(WebApplicationBuilder builder)
     {
@@ -12,22 +12,22 @@ public sealed class StatusModule : IModule
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/-/healthz", status)
+        endpoints.MapGet("/-/healthz", HandleStatus)
             .Produces(StatusCodes.Status204NoContent)
-            .WithTags("BrewUp");
+            .WithTags("Status");
         
-        endpoints.MapGet("/-/ready", status)
+        endpoints.MapGet("/-/ready", HandleStatus)
             .Produces(StatusCodes.Status204NoContent)
-            .WithTags("BrewUp");
+            .WithTags("Status");
         
-        endpoints.MapGet("/-/check-up", status)
+        endpoints.MapGet("/-/check-up", HandleStatus)
             .Produces(StatusCodes.Status204NoContent)
-            .WithTags("BrewUp");
+            .WithTags("Status");
 
         return endpoints;
     }
 
-    private static IResult status()
+    private static IResult HandleStatus()
     {
         return Results.NoContent();
     }
