@@ -19,7 +19,7 @@ The repository provides a Visual Studio solution to import your code directly in
 To create your build simply run
 
 ```
-cd src/BreqUpApiTemplate
+cd src/BrewUpApiTemplate
 dotnet restore
 dotnet build BrewUpApiTemplate.csproj
 ```
