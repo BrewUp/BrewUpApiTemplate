@@ -24,6 +24,6 @@ dotnet restore
 dotnet build BrewUpApiTemplate.csproj
 ```
 
-### Sample usage
+### How to implement new modules?
 
-See BrewUp module to create new module
+See BrewUp module to create new module, it creates a simple module with one `/brewup` API that you can invoke to obtain a nice _Hello World_ message. Try providing a `Name` in your request to see how it affects the API response!
