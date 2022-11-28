@@ -8,7 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["BrewUpApiTemplate.csproj", "BrewUpApiTemplate/"]
-RUN dotnet restore "BrewUpApiTemplate/BrewUpApiTemplate.csproj"
+RUN dotnet restore "BrewUpApiTemplate/BrewUpApiTemplate/BrewUpApiTemplate.csproj"
 COPY . BrewUpApiTemplate/
 WORKDIR "/src/BrewUpApiTemplate"
 RUN dotnet build "BrewUpApiTemplate.csproj" -c Release -o /app/build

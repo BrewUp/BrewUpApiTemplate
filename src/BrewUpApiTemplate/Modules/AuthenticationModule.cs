@@ -5,14 +5,8 @@ namespace BrewUpApiTemplate.Modules;
 
 public class AuthenticationModule : IModule
 {
-    public bool IsEnabled { get; }
-    public int Order { get; }
-
-    public AuthenticationModule()
-    {
-        IsEnabled = true;
-        Order = 0;
-    }
+	public bool IsEnabled => true;
+	public int Order => 0;
 
     public IServiceCollection RegisterModule(WebApplicationBuilder builder)
     {
