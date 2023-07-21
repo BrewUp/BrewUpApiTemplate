@@ -1,34 +1,27 @@
+using BrewUpApiTemplate.Models;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 namespace BrewUpApiTemplate.Modules;
 
 public sealed class StatusModule : IModule
 {
-    public bool IsEnabled => true;
-    public int Order => 0;
+	public bool IsEnabled => true;
+	public int Order => 0;
 
-    public IServiceCollection RegisterModule(WebApplicationBuilder builder)
-    {
-        return builder.Services;
-    }
+	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
+	{
+		builder.Services.AddHealthChecks();
 
-    public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapGet("/-/healthz", HandleStatus)
-            .Produces(StatusCodes.Status204NoContent)
-            .WithTags("Status");
-        
-        endpoints.MapGet("/-/ready", HandleStatus)
-            .Produces(StatusCodes.Status204NoContent)
-            .WithTags("Status");
-        
-        endpoints.MapGet("/-/check-up", HandleStatus)
-            .Produces(StatusCodes.Status204NoContent)
-            .WithTags("Status");
+		return builder.Services;
+	}
 
-        return endpoints;
-    }
+	public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
+	{
+		endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+		{
+			ResponseWriter = HealthCheckExtensions.WriteResponse
+		});
 
-    private static IResult HandleStatus()
-    {
-        return Results.NoContent();
-    }
+		return endpoints;
+	}
 }
