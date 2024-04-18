@@ -1,4 +1,4 @@
-using BrewUpApiTemplate.Models;
+using BrewUpApiTemplate.Helpers;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 namespace BrewUpApiTemplate.Modules;
@@ -17,7 +17,7 @@ public sealed class StatusModule : IModule
 
 	public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
 	{
-		endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+		endpoints.MapHealthChecks("/health", new HealthCheckOptions
 		{
 			ResponseWriter = HealthCheckExtensions.WriteResponse
 		});
