@@ -5,23 +5,23 @@ namespace BrewUpApiTemplate.Modules;
 
 public sealed class StatusModule : IModule
 {
-	public bool IsEnabled => true;
-	public int Order => 0;
+  public bool IsEnabled => true;
+  public int Order => 0;
 
-	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
-	{
-		builder.Services.AddHealthChecks();
+  public IServiceCollection Register(WebApplicationBuilder builder)
+  {
+    builder.Services.AddHealthChecks();
 
-		return builder.Services;
-	}
+    return builder.Services;
+  }
 
-	public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
-	{
-		endpoints.MapHealthChecks("/health", new HealthCheckOptions
-		{
-			ResponseWriter = HealthCheckExtensions.WriteResponse
-		});
+  WebApplication IModule.Configure(WebApplication app)
+  {
+    app.MapHealthChecks("/health", new HealthCheckOptions
+    {
+      ResponseWriter = HealthCheckExtensions.WriteResponse
+    });
 
-		return endpoints;
-	}
+    return app;
+  }
 }

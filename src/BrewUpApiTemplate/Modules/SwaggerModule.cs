@@ -4,34 +4,44 @@ namespace BrewUpApiTemplate.Modules;
 
 public sealed class SwaggerModule : IModule
 {
-    public bool IsEnabled { get; }
-    public int Order { get; }
+  public bool IsEnabled => true;
+  public int Order => 0;
 
-    public SwaggerModule()
+  public IServiceCollection Register(WebApplicationBuilder builder)
+  {
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo()
     {
-        IsEnabled = true;
-        Order = 0;
-    }
+      Description = "BrewUp",
+      Title = "BrewUp API",
+      Version = "v1",
+      Contact = new OpenApiContact
+      {
+        Name = "BrewUp"
+      }
+    }));
 
-    public IServiceCollection RegisterModule(WebApplicationBuilder builder)
+    return builder.Services;
+  }
+
+  public WebApplication Configure(WebApplication app)
+  {
+    if (app.Environment.IsDevelopment())
     {
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo()
-        {
-            Description = "BrewUp API",
-            Title = "BrewUp Api",
-            Version = "v1",
-            Contact = new OpenApiContact
-            {
-                Name = "BrewUp.Api"
-            }
-        }));
-
-        return builder.Services;
+      app.UseSwagger(option =>
+      {
+        option.RouteTemplate = "documentation/{documentName}/documentation.json";
+      });
+      app.UseSwaggerUI(x =>
+      {
+        //La versione deve essere identica con quella specificata nel modulo moduels\swagger.cs o da errore con il json
+        x.SwaggerEndpoint("/documentation/v1/documentation.json", "BrewUp");
+        x.RoutePrefix = "documentation";
+      });
+      app.UseDeveloperExceptionPage();
     }
+    return app;
+  }
 
-    public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
-    {
-        return endpoints;
-    }
+  public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) => endpoints;
 }

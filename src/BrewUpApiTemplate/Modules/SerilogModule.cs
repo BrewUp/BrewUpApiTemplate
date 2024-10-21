@@ -4,20 +4,20 @@ namespace BrewUpApiTemplate.Modules;
 
 public class SerilogModule : IModule
 {
-	public bool IsEnabled => true;
-	public int Order => 0;
+  public bool IsEnabled => true;
+  public int Order => 0;
 
-	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
-	{
-		var logger = new LoggerConfiguration()
-			.ReadFrom.Configuration(builder.Configuration)
-			.Enrich.FromLogContext()
-			.CreateLogger();
+  public IServiceCollection Register(WebApplicationBuilder builder)
+  {
+    var logger = new LoggerConfiguration()
+      .ReadFrom.Configuration(builder.Configuration)
+      .Enrich.FromLogContext()
+      .CreateLogger();
 
-		builder.Logging.AddSerilog(logger);
+    builder.Logging.AddSerilog(logger);
 
-		return builder.Services;
-	}
+    return builder.Services;
+  }
 
-	public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) => endpoints;
+  WebApplication IModule.Configure(WebApplication app) => app;
 }

@@ -5,11 +5,11 @@ using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register Modules
-builder.RegisterModules();
-
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<SayHelloValidator>();
+
+// Register Modules
+builder.RegisterModules();
 
 var app = builder.Build();
 
@@ -18,18 +18,6 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Register endpoints
-app.MapEndpoints();
+app.ConfigureModules();
 
-// Configure the HTTP request pipeline.
-app.UseSwagger(s =>
-{
-    s.RouteTemplate = "documentation/{documentName}/documentation.json";
-});
-app.UseSwaggerUI(s =>
-{
-    s.SwaggerEndpoint("/documentation/v1/documentation.json", "BrewUp Minimal Api Template");
-    s.RoutePrefix = "documentation";
-});
-
-app.Run();
+await app.RunAsync();
