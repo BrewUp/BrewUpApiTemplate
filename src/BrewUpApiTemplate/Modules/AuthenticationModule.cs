@@ -7,6 +7,7 @@ public class AuthenticationModule : IModule
 {
   public bool IsEnabled => true;
   public int Order => 0;
+  public IEnumerable<IModule> DependsOn => Array.Empty<IModule>();
 
   public IServiceCollection Register(WebApplicationBuilder builder)
   {

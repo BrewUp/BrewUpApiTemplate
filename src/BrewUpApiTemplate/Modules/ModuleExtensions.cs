@@ -6,11 +6,22 @@ public static class ModuleExtensions
 
   public static WebApplicationBuilder RegisterModules(this WebApplicationBuilder builder)
   {
-    var modules = DiscoverModules();
+    var modules = DiscoverModules().ToList();
+
     foreach (var module in modules
-           .Where(m => m.IsEnabled)
-           .OrderBy(m => m.Order))
+               .Where(m => m.IsEnabled)
+               .OrderBy(m => m.Order))
     {
+      foreach (var dependency in module.DependsOn)
+      {
+        var dependentModule = modules.FirstOrDefault(m => m.GetType() == dependency.GetType());
+        if (dependentModule is not { IsEnabled: true })
+        {
+          throw new InvalidOperationException(
+            $"Il modulo {module.GetType().Name} dipende dal modulo {dependency.GetType().Name}, ma quest'ultimo non è abilitato.");
+        }
+      }
+
       module.Register(builder);
       RegisteredModules.Add(module);
     }
