@@ -7,22 +7,11 @@
     <UserSecretsId>4d21aac1-ce6c-460c-89a8-f46484150c55</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <SonarQubeExclude>True</SonarQubeExclude>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>BrewUp API template</Title>
     <Authors>Alberto Acerbis</Authors>
     <Company>Muflone</Company>
     <Description>A project template for creating a modular RESTful WebAPI</Description>
     <Copyright>Alberto Acerbis</Copyright>
-    <PackageProjectUrl>https://github.com/BrewUp/BrewUpApiTemplate</PackageProjectUrl>
-    <PackageIcon>Logo.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/BrewUp/BrewUpApiTemplate</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>Modular Monolith, DDD</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>Modular, DDD</PackageTags>
-    <PackAsTool>True</PackAsTool>
-    <IsPackable>True</IsPackable>
   </PropertyGroup>
 
 	<ItemGroup>

@@ -1549,5 +1549,40 @@
     "tags"
   ],
   "title": "JSON schema .NET template configuration (template.json).",
-  "type": "object"
+  "type": "object",
+  "author": "Alberto Acerbis",
+  "classifications": [
+    "dotnet",
+    "minimalapi",
+    "webapi",
+    "modular application",
+    "DDD"
+  ],
+  "identity": "BrewUpApiTemplate",
+  "name": "BrewUp API Template",
+  "description": "A project template for creating a modular RESTful WebAPI",
+  "shortName": "brewupapi",
+  "sourceName": "BrewUpApiTemplate",
+  "preferNameDirectory": true,
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+        "**/.vs/**",
+        "**/.vscode/**",
+        "**/.idea/**"
+      ]
+    }
+  ]
 }

@@ -7,9 +7,25 @@ You can find examples about solution developed with this template [here](https:/
 
 You can find instructions to configure custom templates in VisualStudio [here](https://docs.microsoft.com/en-us/visualstudio/ide/customizing-project-and-item-templates?view=vs-2022)
 
+## Installation and usage
+
+You can install this package via nuget
+
+```sh
+dotnet new install BrewUpApiTemplate
+```
+
+Then you can create your project using the .NET CLI
+
+```sh
+dotnet new brewupapi -n MyProjectName
+```
+
+or using your favourite IDE (such as Visual Studio or Rider)
+
 ## What's inside this repository?
 
-This repository holds the basic configuration to start a new microservice using .Net 6.
+This repository holds the basic configuration to start a new microservice using .NET 9.
 
 The microservice is already prepared to serve APIs through a web server and expose its OpenAPI Specification generated from the modules you define. It also provides an out-of-the-box implementation status routes for an easier Kubernetes probes integration.
 
